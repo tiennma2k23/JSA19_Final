@@ -1,0 +1,300 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="shortcut icon" href="./images/logo.png" type="image/x-icon">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css"
+        integrity="sha512-1ycn6IcaQQ40/MKBW2W4Rhis/DbILU74C1vSrLJxCq57o941Ym01SwNsOMqvEBFlcgUa6xLiPY/NS5R+E6ztJQ=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="stylesheet" href="style.css">
+    <title>Document</title>
+</head>
+
+<body class="">
+    <nav>
+        <div class="nav-left">
+            <img src="./images/logo.png" alt="Logo">
+            <input type="text" placeholder="Search Mediabook..">
+        </div>
+
+        <div class="nav-middle">
+            <a href="#" class="active">
+                <i class="fa fa-home"></i>
+            </a>
+
+            <a href="#">
+                <i class="fa fa-user-friends"></i>
+            </a>
+
+            <a href="#">
+                <i class="fa fa-play-circle"></i>
+            </a>
+
+            <a href="#">
+                <i class="fa fa-users"></i>
+            </a>
+        </div>
+
+        <div class="nav-right">
+            <div class="nav_user_icon" onclick="setting_menu_toggle()">
+                <img src="./images/userimg.png" alt="" srcset="">
+            </div>
+
+            <a href="#">
+                <i class="fa fa-bell"></i>
+            </a>
+
+            <a href="#">
+                <i class="fas fa-ellipsis-h"></i>
+            </a>
+        </div>
+
+        <div class="settings_menu">
+            <div id="dark_white_btn" class="">
+                
+                <span></span>
+            </div>
+            <div class="setting_menu_inner">
+                <div class="user_profile">
+                    <img src="images/userimg.png" alt="">
+                    <div>
+                        <div class="fullname" style="color:#626262 ;"></div>
+                        <!-- <a href="https://www.facebook.com/mkhonglui.1918/">Contact with facebook</a> -->
+                    </div>
+                </div>
+                <hr>
+
+                <div class="user_profile">
+                    <img src="images/feedback.png" alt="">
+                    <div>
+                        <p>Give Feedback</p>
+                        <a href="#">Help us to improve new design</a>
+                    </div>
+                </div>
+                <hr>
+
+                <div class="setting_links">
+                    <img src="images/setting.png" class="setting_icon">
+                    <a href="#">Setting &amp; Privacy <img src="images/arrow.png" alt="" width="10px"></a>
+                </div>
+
+                <div class="setting_links">
+                    <img src="images/help.png" class="setting_icon">
+                    <a href="#">Help &amp; Support <img src="images/arrow.png" alt="" width="10px"></a>
+                </div>
+
+                <div class="setting_links">
+                    <img src="images/display.png" class="setting_icon">
+                    <a href="#">Display &amp; Accessibility <img src="images/arrow.png" alt="" width="10px"></a>
+                </div>
+
+                <div class="setting_links">
+                    <img src="images/logout.png" class="setting_icon">
+                    <a href="../login_signup/index_login.html">Logout <img src="images/arrow.png" alt="" width="10px"></a>
+                </div>
+
+            </div>
+            
+        </div>
+    </nav>
+
+
+    <div class="container">
+        <!-- left -->
+        <div class="left_sidebar">
+            <div class="imp_links">
+                <a href="#"><img src="images/news.png">Lastest News</a>
+                <!-- <a href="#"><img src="images/friends.png">Friends</a> -->
+                <a href="#"><img src="images/group.png">Group</a>
+                <a href="#"><img src="images/marketplace.png">Marketplace</a>
+                <a href="#" >See more</a>
+            </div>
+            <div class="shortcut_link">
+                <p> <strong>Your Shortcuts</strong> </p>
+                <a href="#"><img src="images/shortcut-1.png">Web Developers</a>
+                <a href="#"><img src="images/shortcut-2.png">Web Design course</a>
+                <a href="#"><img src="images/shortcut-3.png">Full stack</a>
+                <a href="#"><img src="images/shortcut-4.png">Website Experts</a>
+            </div>
+        </div>
+        <!-- center  -->
+        <div class="main_content" id="main_content">
+            <!-- <div class="story_gallery">
+                <div class="story story1">
+                    <img src="images/upload.png" alt="">
+                    <p>Post Story</p>
+                </div>
+                <div class="story story2">
+                    <img src="images/userimg.png" alt="">
+                    <p>User 1</p>
+                </div>
+                <div class="story story3">
+                    <img src="images/userimg.png" alt="">
+                    <p>User 2</p>
+                </div>
+                <div class="story story4">
+                    <img src="images/userimg.png" alt="">
+                    <p>User 3</p>
+                </div>
+                <div class="story story5">
+                    <img src="images/userimg.png" alt="">
+                    <p>User 4</p>
+                </div>
+            </div> -->
+
+            <div class="write_post_container">
+                <!-- <div class="user_profile">
+                    <img src="images/userimg.png" alt="">
+                    <div>
+                        <p>Nguyễn Minh Tiến</p>
+                        <small>Public <i class="fas fa-caret-down"></i></small>
+                    </div>
+                </div> -->
+
+                <div class="post_input_container">
+                    <button class="inputbtn">Post status</button>
+                    <div class="post_menu">
+                        <!-- <div>textinput</div> -->
+                        <div class="content_input">
+                            <input type="text" id="nameuser" placeholder="Bạn tên là gì ?"></input>
+                            <input type="text" id="content" placeholder="Bạn đang nghĩ gì ?"></input>
+                        </div>
+                        <div class="post_btn">
+                            <a href="#"><img src="images/live-video.png" alt="">Live Video</a>
+                            <a href="#"><img src="images/photo.png" alt="">Photo/Video</a>
+                            <a href="#"><img src="images/feeling.png" alt="">Feeling/Activity</a>
+                            <button class="_post">POST</button>
+                        </div>
+                        
+                    </div>
+                </div>
+
+            </div>
+            
+            <div class="post_container" id="post_container">
+                <div class="post_row">
+                    <div class="user_profile">
+                        <img src="images/userimg.png" alt="">
+                        <div>
+                            <p >Nguyễn Minh Tiến</p>
+                            <!-- <span>June 5 2022, 14:30 pm</span> -->
+                        </div>
+                    </div>
+                    <a href="#"><i class="fas fa-ellipsis-v"></i></a>
+                </div>
+                
+                <p class="post_text">Hôm nay tôi buồn ! <span>@....</span> <a href="#">#sad</a> </p>
+                <img src="images/sad.png" alt="" class="post_img"> 
+                <div class="post_row">
+                    <div class="activity_icon">
+                        <div><button class="like"><img src="images/like-blue.png" alt=""></button><span id="countlike">0</span></div>
+                        <div><button class="cmt"><img src="images/comments.png" alt=""></button><span id="countcmt">100</span></div>
+                        <div><button class="share"><img src="images/share.png" alt=""></button><span id="countshare">100</span></div>
+                    </div>
+                    <div class="post_profile_icon">
+                        <img src="images/userimg.png" alt=""> <i class="fas fa-caret-down"></i>
+                    </div>
+                </div>
+            </div>
+
+            <div class="post_container">
+                <div class="post_row">
+                    <div class="user_profile">
+                        <img src="images/userimg.png" alt="">
+                        <div>
+                            <p >User 1</p>
+                            <!-- <span>June 5 2022, 15:30 pm</span> -->
+                        </div>
+                    </div>
+                    <a href="#"><i class="fas fa-ellipsis-v"></i></a>
+                </div>
+                
+                <p class="post_text">Hôm nay tôi vui ! <span>@....</span> <a href="#">#happy</a> </p>
+                <img src="images/happy.jpg" alt="" class="post_img"> 
+                <div class="post_row">
+                    <div class="activity_icon">
+                        <div><button class="like2"><img src="images/like-blue.png" alt=""></button><span id="countlike2">0</span></div>
+                        <div><button class="cmt2"><img src="images/comments.png" alt=""></button><span id="countcmt">100</span></div>
+                        <div><button class="share2"><img src="images/share.png" alt=""></button><span id="countshare">100</span></div>
+                    </div>
+                    <div class="post_profile_icon">
+                        <img src="images/userimg.png" alt=""> <i class="fas fa-caret-down"></i>
+                    </div>
+                </div>
+            </div>
+            <div id="post_in_socialbook">
+                
+            </div>
+        </div>
+            <!-- right  -->
+        <div class="right_sidebar">
+            <div class="slidebar_title">
+                <h4>Events</h4>
+                <a href="#">See All</a>
+            </div>
+            <div class="event">
+                <div class="left_event">
+                    <h3>18</h3>
+                    <span>March</span>
+                </div>
+                <div class="right_event">
+                    <h4>Social Media</h4>
+                    <p><i class="fas fa-map-marker-alt"></i> Willson Tech Park</p>
+                    <a href="#">More Info</a>
+                </div>
+            </div>
+
+            <div class="event">
+                <div class="left_event">
+                    <h3>18</h3>
+                    <span>March</span>
+                </div>
+                <div class="right_event">
+                    <h4>Social Media</h4>
+                    <p><i class="fas fa-map-marker-alt"></i> Willson Tech Park</p>
+                    <a href="#">More Info</a>
+                </div>
+            </div>
+
+            <div class="slidebar_title">
+                <h4>Advertisement</h4>
+                <a href="#">Close</a>
+            </div>
+            <img src="images/advertisement.png" alt="" class="sidebar_ad">
+
+            <div class="slidebar_title">
+                <h4>Conversation</h4>
+                <a href="#">Hide Chat</a>
+            </div>
+            <div class="online_list">
+                <div class="online">
+                    <img src="images/userimg.png" alt="">
+                </div>
+                <p>User 1</p>
+            </div>
+            <div class="online_list">
+                <div class="online">
+                    <img src="images/userimg.png" alt="">
+                </div>
+                <p>User 2</p>
+            </div>
+            <div class="online_list">
+                <div class="online">
+                    <img src="images/userimg.png" alt="">
+                </div>
+                <p>User 3</p>
+            </div>
+        </div>
+    </div>
+    <div class="footer">
+        <p>Copyright 2021 - Nguyen Minh Tien</p>
+    </div>
+    <script src="index.js"></script>
+
+
+</body>
+
+</html>
