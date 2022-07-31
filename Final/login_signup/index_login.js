@@ -1,3 +1,7 @@
+function reset() {
+  localStorage.removeItem("fullname");
+}
+reset();
 const forms = document.querySelector(".forms"),
   links = document.querySelectorAll(".link");
 
