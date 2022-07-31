@@ -31,6 +31,7 @@ function solve_login() {
           res[i].username == email.value &&
           res[i].password == password.value
         ) {
+          localStorage.setItem("fullname", res[i].fullname);
           ok = true;
           break;
         }
@@ -39,6 +40,8 @@ function solve_login() {
         alert("AC");
         email.value = "";
         password.value = "";
+        window.open("../home/index.html");
+        window.close("index_login.html");
       } else {
         alert("Fail");
         email.value = "";
@@ -67,12 +70,14 @@ const add = async (data) => {
 let email_reg = document.getElementById("email_reg");
 let password_reg = document.getElementById("password_reg");
 let cfpassword_reg = document.getElementById("cfpassword_reg");
+let fullname_reg = document.getElementById("fullname_reg");
 function solve_reg() {
   if (password_reg.value != cfpassword_reg.value) {
     alert("Fail");
     email_reg.value = "";
     password_reg.value = "";
     cfpassword_reg.value = "";
+    fullname_reg.value = "";
   } else {
     fetch(UrlApi)
       .then((result) => result.json())
@@ -90,12 +95,18 @@ function solve_reg() {
           email_reg.value = "";
           password_reg.value = "";
           cfpassword_reg.value = "";
+          fullname_reg.value = "";
         } else {
           alert("AC");
-          add({ username: email_reg.value, password: password_reg.value });
+          add({
+            username: email_reg.value,
+            password: password_reg.value,
+            fullname: fullname_reg.value,
+          });
           email_reg.value = "";
           password_reg.value = "";
           cfpassword_reg.value = "";
+          fullname_reg.value = "";
         }
       })
       .catch((error) => {

@@ -30,3 +30,6 @@ var post_menu = document.querySelector(".post_menu");
 inputbtn.onclick = function () {
   post_menu.classList.toggle("post_menu_height");
 };
+
+var fullname = document.getElementById("fullname");
+fullname.innerHTML = localStorage.getItem("fullname");
