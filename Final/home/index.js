@@ -48,13 +48,18 @@ const updateById = async (id, newData) => {
   console.log(await res.json());
 };
 
+let idp = 0;
+
 function refresh() {
   let main = document.getElementById("post_in_socialbook");
-  main.innerHTML = "";
+  // main.innerHTML = "";
   fetch(UrlApi)
     .then((result) => result.json())
     .then((data) => {
-      for (let i = 0; i < data.length; i++) {
+      let dem = 3;
+      for (let i = idp; i < data.length; i++) {
+        dem--;
+        idp++;
         var name = data[i].fullname;
         var poster = data[i].content;
         var cnt_like = data[i].cnt_like;
@@ -64,7 +69,7 @@ function refresh() {
         var user_profile = document.createElement("div");
         user_profile.setAttribute("class", "user_profile");
         var img_user = document.createElement("img");
-        img_user.src = "images/member.png";
+        img_user.src = "images/userimg.png";
         var name_user = document.createElement("div");
         var name_p = document.createElement("p");
         name_p.innerHTML = name;
@@ -198,10 +203,11 @@ function refresh() {
 
         newDiv.append(newpost);
         main.append(newDiv);
+        if (dem == 0 || idp == data.length) break;
       }
     });
 }
-refresh();
+// refresh();
 const add = async (data) => {
   const res = await fetch(UrlApi, {
     headers: {
@@ -211,8 +217,8 @@ const add = async (data) => {
     method: "POST",
     body: JSON.stringify(data),
   });
-  console.log(await res.json());
-  refresh();
+  // console.log(await res.json());
+  // refresh();
 };
 
 var _post = document.querySelector("._post");
@@ -232,3 +238,4 @@ _post.onclick = function () {
     cnt_like: 0,
   });
 };
+let POSTT = setInterval(refresh, 2000);

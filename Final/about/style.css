@@ -1,0 +1,52 @@
+body
+{
+    background-image: url("https://assets.production.linktr.ee/profiles/_next/static/images/background-desktop-45c50d8367c3fde3651e78c55eb37be8.png");
+    background-size: cover;
+    background-repeat: no-repeat;
+    display: flex;
+    flex-direction: column;
+    height: 100vh;
+    justify-content: space-around;
+}
+.name
+{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+.name img
+{
+    height: 150px;
+    border-radius: 50%;
+}
+.name span
+{
+    margin-top: 15px;
+    font-size: 20px;
+}
+
+.infor
+{
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    align-items: center;
+    height: 450px;
+}
+.infor a
+{
+    height: 60px;
+    width: 600px;
+    border-radius: 25px;
+    background-color: aliceblue;
+    color: black;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-decoration: none;
+    outline: none;
+    cursor: pointer;
+}
+
+
