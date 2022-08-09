@@ -50,6 +50,8 @@ function solve() {
           updateById(id, {
             username: email.value,
             password: password.value,
+            fullname: res[id - 1].fullname,
+            online: 0,
           });
           email.value = "";
           password.value = "";

@@ -38,6 +38,7 @@ var Name = document.getElementById("Name");
 Name.innerHTML = localStorage.getItem("fullname");
 
 const UrlApi = "https://62d4116c5112e98e484a08f4.mockapi.io/api/contents";
+const UrlApiUser = "https://62d4116c5112e98e484a08f4.mockapi.io/api/users";
 
 const updateById = async (id, newData) => {
   const res = await fetch(UrlApi + `/${id}`, {
@@ -47,6 +48,30 @@ const updateById = async (id, newData) => {
   });
   console.log(await res.json());
 };
+const updateById2 = async (id, newData) => {
+  const res = await fetch(UrlApiUser + `/${id}`, {
+    method: "PUT",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify(newData),
+  });
+  console.log(await res.json());
+};
+//inactive
+
+//active
+function active() {
+  let id = Number(localStorage.id);
+  fetch(UrlApiUser)
+    .then((result) => result.json())
+    .then((data) => {
+      updateById2(id, {
+        fullname: data[id - 1].fullname,
+        username: data[id - 1].username,
+        online: 1,
+        password: data[id - 1].password,
+      });
+    });
+}
 
 let idp = 0;
 
@@ -238,4 +263,55 @@ _post.onclick = function () {
     cnt_like: 0,
   });
 };
+
+active();
 let POSTT = setInterval(refresh, 2000);
+
+function listOnlineUser() {
+  let online_user = document.getElementById("online_user");
+  online_user.innerHTML = "";
+  fetch(UrlApiUser)
+    .then((result) => result.json())
+    .then((data) => {
+      let useronline = [];
+      for (let i = 0; i < data.length; i++) {
+        if (data[i].online > 0) {
+          useronline.push(i);
+        }
+      }
+      let dem = 0;
+      let ok = [];
+      for (let i = 0; i < data.length; i++) ok.push(0);
+      while (true) {
+        let index = Math.floor(Math.random() * useronline.length);
+        if (ok[index] == 0) {
+          dem++;
+          online_user.innerHTML += `<div class="online_list">
+        <div class="online">
+            <img src="images/userimg.png" alt="">
+        </div>
+        <p>${data[useronline[index]].fullname}</p>
+    </div>`;
+        }
+        ok[index] = 1;
+        if (dem == 3) break;
+      }
+      // console.log(useronline);
+    });
+}
+let getdataOnlineUser = setInterval(listOnlineUser, 3000);
+let idd = Number(localStorage.id);
+function inactive() {
+  fetch(UrlApiUser)
+    .then((result) => result.json())
+    .then((data) => {
+      updateById2(idd, {
+        fullname: data[idd - 1].fullname,
+        username: data[idd - 1].username,
+        online: 0,
+        password: data[idd - 1].password,
+      });
+    });
+}
+// inactive();
+// window.addEventListener("beforeunload", inactive);

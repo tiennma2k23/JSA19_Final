@@ -1,5 +1,26 @@
+const UrlApi = "https://62d4116c5112e98e484a08f4.mockapi.io/api/users";
+const updateById = async (id, newData) => {
+  const res = await fetch(UrlApi + `/${id}`, {
+    method: "PUT",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify(newData),
+  });
+  console.log(await res.json());
+};
 function reset() {
+  let id = Number(localStorage.getItem("id"));
+  fetch(UrlApi)
+    .then((result) => result.json())
+    .then((res) => {
+      updateById(id, {
+        username: res[id - 1].username,
+        password: res[id - 1].password,
+        fullname: res[id - 1].fullname,
+        online: 0,
+      });
+    });
   localStorage.removeItem("fullname");
+  localStorage.removeItem("id");
 }
 reset();
 const forms = document.querySelector(".forms"),
@@ -22,7 +43,6 @@ forgotlink.forEach((forgot_pass) => {
   });
 });
 
-const UrlApi = "https://62d4116c5112e98e484a08f4.mockapi.io/api/users";
 let email = document.getElementById("email"),
   password = document.getElementById("password");
 function solve_login() {
@@ -36,6 +56,13 @@ function solve_login() {
           res[i].password == password.value
         ) {
           localStorage.setItem("fullname", res[i].fullname);
+          localStorage.setItem("id", res[i].id);
+          updateById(res[i].id, {
+            username: res[i].username,
+            password: res[i].password,
+            fullname: res[i].fullname,
+            online: 1,
+          });
           ok = true;
           break;
         }
@@ -106,6 +133,7 @@ function solve_reg() {
             username: email_reg.value,
             password: password_reg.value,
             fullname: fullname_reg.value,
+            online: 0,
           });
           email_reg.value = "";
           password_reg.value = "";
