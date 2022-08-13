@@ -40,7 +40,7 @@
 
         <div class="nav-right">
             <div class="nav_user_icon" onclick="setting_menu_toggle()">
-                <img src="./images/userimg.png" alt="" srcset="">
+                <img src="./images/userimg.png" alt="" srcset="" id="avatar">
             </div>
 
             <a href="#">
@@ -59,7 +59,7 @@
             </div>
             <div class="setting_menu_inner">
                 <div class="user_profile">
-                    <img src="images/userimg.png" alt="">
+                    <img src="images/userimg.png" alt="" id="avatar2">
                     <div>
                         <div id="fullname" style="color:#626262 ;"></div>
                         <!-- <a href="https://www.facebook.com/mkhonglui.1918/">Contact with facebook</a> -->
@@ -108,7 +108,7 @@
             <ul>
                 <li>
                     <img src="./images/userimg.png" alt="" srcset="" style="height: 40px;
-                    border-radius: 50%;">
+                    border-radius: 50%;" id="avatar1">
                     <p id="Name"></p>
                 </li>
                 <li>
@@ -202,13 +202,13 @@
                     <button class="inputbtn">Post status</button>
                     <div class="post_menu">
                         <!-- <div>textinput</div> -->
-                        <div class="content_input">
+                        <div class="content_input" id="content_input">
                             <!-- <input type="text" id="nameuser" placeholder="Bạn tên là gì ?"></input> -->
                             <input type="text" id="content" placeholder="Bạn đang nghĩ gì ?"></input>
                         </div>
                         <div class="post_btn">
                             <a href="#"><img src="images/live-video.png" alt="">Live Video</a>
-                            <a href="#"><img src="images/photo.png" alt="">Photo/Video</a>
+                            <button style="border: none;background-color:var(--bg-color)" id="upphoto"><a href="#"><img src="images/photo.png" alt="">Photo/Video</a></button>
                             <a href="#"><img src="images/feeling.png" alt="">Feeling/Activity</a>
                             <button class="_post">POST</button>
                         </div>
@@ -221,7 +221,7 @@
             <div class="post_container" id="post_container">
                 <div class="post_row">
                     <div class="user_profile">
-                        <img src="images/userimg.png" alt="">
+                        <img src="images/userimg.png" alt="" >
                         <div>
                             <p >Nguyễn Minh Tiến</p>
                             <span class="time">12 hrs ago</span>
@@ -271,7 +271,7 @@
                     </div>
                 </div>
             </div>
-            <div id="post_in_socialbook">
+            <div id="post_in_mediabook">
                 
             </div>
         </div>
@@ -287,7 +287,7 @@
                     <span>March</span>
                 </div>
                 <div class="right_event">
-                    <h4>Social Media</h4>
+                    <h4> Media</h4>
                     <p><i class="fas fa-map-marker-alt"></i> Willson Tech Park</p>
                     <a href="#">More Info</a>
                 </div>
@@ -299,7 +299,7 @@
                     <span>March</span>
                 </div>
                 <div class="right_event">
-                    <h4>Social Media</h4>
+                    <h4> Media</h4>
                     <p><i class="fas fa-map-marker-alt"></i> Willson Tech Park</p>
                     <a href="#">More Info</a>
                 </div>

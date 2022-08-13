@@ -168,3 +168,13 @@ a.google span {
     padding: 20px 10px;
   }
 }
+
+.imginput
+{
+  display: flex;
+  border: 1px solid#CACACA
+}
+.imginput input
+{
+  border: none;
+}

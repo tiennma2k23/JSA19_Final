@@ -21,7 +21,12 @@ let email = document.getElementById("email");
 let password = document.getElementById("password");
 let cfpassword = document.getElementById("cfpassword");
 function solve() {
-  if (password.value != cfpassword.value) {
+  if (password.value == "" || cfpassword.value == "" || email.value == "") {
+    alert("Fail");
+    password.value = "";
+    cfpassword.value = "";
+    email.value = "";
+  } else if (password.value != cfpassword.value) {
     alert("Mật khẩu và nhắc lại mật khẩu không trùng khớp");
     password.value = "";
     cfpassword.value = "";
@@ -51,6 +56,7 @@ function solve() {
             username: email.value,
             password: password.value,
             fullname: res[id - 1].fullname,
+            avatar: res[id - 1].avatar,
             online: 0,
           });
           email.value = "";
