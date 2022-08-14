@@ -9,18 +9,21 @@ const updateById = async (id, newData) => {
 };
 function reset() {
   let id = Number(localStorage.getItem("id"));
-  fetch(UrlApi)
-    .then((result) => result.json())
-    .then((res) => {
-      updateById(id, {
-        username: res[id - 1].username,
-        password: res[id - 1].password,
-        fullname: res[id - 1].fullname,
-        avatar: res[id - 1].avatar,
-        online: 0,
+  if (id != 0) {
+    fetch(UrlApi)
+      .then((result) => result.json())
+      .then((res) => {
+        updateById(id, {
+          username: res[id - 1].username,
+          password: res[id - 1].password,
+          fullname: res[id - 1].fullname,
+          avatar: res[id - 1].avatar,
+          online: 0,
+        });
       });
-    });
+  }
   localStorage.removeItem("fullname");
+  localStorage.removeItem("avatar");
   localStorage.removeItem("id");
 }
 reset();
@@ -73,8 +76,13 @@ function solve_login() {
         alert("AC");
         email.value = "";
         password.value = "";
-        window.open("../home/index.html");
-        window.close("index_login.html");
+        if (localStorage.getItem("chat") == 1) {
+          window.open("../chat/index.html");
+          window.close("index_login.html");
+        } else {
+          window.open("../home/index.html");
+          window.close("index_login.html");
+        }
       } else {
         alert("Fail");
         email.value = "";

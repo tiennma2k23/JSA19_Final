@@ -61,6 +61,20 @@ const updateById2 = async (id, newData) => {
   console.log(await res.json());
 };
 
+function _settime(hour, minute, second, id) {
+  let ch;
+  if (id == 1) ch = ":";
+  else if (id == 2) ch = "-";
+  let _h = String(hour);
+  if (_h.length == 1) _h = "0" + _h;
+  let _m = String(minute);
+  if (_m.length == 1) _m = "0" + _m;
+  let _s = String(second);
+  if (_s.length == 1) _s = "0" + _s;
+  let ans = "";
+  ans = _h + ch + _m + ch + _s;
+  return ans;
+}
 // get Info
 function getInfo() {
   let avatar = document.getElementById("avatar");
@@ -110,9 +124,16 @@ function inactive() {
 }
 
 let idp = 0;
-let pos = [];
-for (let i = 1; i <= 100; i++) pos.push(0);
-
+let pos = [],
+  clicked = [],
+  check = [];
+for (let i = 1; i <= 10000000; i++) pos.push(0), clicked.push(0);
+for (let i = 1; i <= 10000; i++) {
+  let _tmp = [];
+  for (let j = 1; j <= 6000; j++) _tmp.push(0);
+  check.push(_tmp);
+}
+// console.log(check[0][0]);
 function refresh() {
   let main = document.getElementById("post_in_mediabook");
   // main.innerHTML = "";
@@ -138,17 +159,9 @@ function refresh() {
         var name_p = document.createElement("p");
         name_p.innerHTML = name;
         var timee =
-          String(data[i].hour) +
-          ":" +
-          String(data[i].minute) +
-          ":" +
-          String(data[i].second) +
+          _settime(data[i].hour, data[i].minute, data[i].second, 1) +
           " ngày " +
-          String(data[i].ngay) +
-          "-" +
-          String(data[i].thang) +
-          "-" +
-          String(data[i].nam);
+          _settime(data[i].ngay, data[i].thang, data[i].nam, 2);
         var name_t = document.createElement("span");
         name_t.setAttribute("class", "time");
         name_t.innerHTML = timee;
@@ -260,7 +273,8 @@ function refresh() {
           let dem = 0;
           let id_s = String(e.target.id);
           let id_n = Number(e.target.id);
-
+          if (clicked[id_n]) return;
+          clicked[id_n] = 1;
           let npost_id = "npost" + id_s;
           let npostt = document.getElementById(npost_id);
           let cmt_area = document.createElement("div");
@@ -270,237 +284,12 @@ function refresh() {
           content_area.setAttribute("class", "content_area");
           content_area.setAttribute("id", "content_area" + id_s);
           while (pos[id_n] < data[id_n - 1].comments.length) {
-            let cmt_content_area = document.createElement("div");
-            cmt_content_area.setAttribute("class", "cmt_content_area");
-            let img_user = document.createElement("img");
-            img_user.setAttribute("class", "img_user");
-            img_user.src = data[id_n - 1].comments[pos[id_n]].avatar;
-            let noidung_cmt = document.createElement("div");
-            noidung_cmt.setAttribute("class", "noidung_cmt");
-            let _cmt = document.createElement("div");
-            _cmt.setAttribute("class", "_cmt");
-            let username_cmt = document.createElement("div");
-            username_cmt.setAttribute("class", "username_cmt");
-
-            username_cmt.innerHTML =
-              data[id_n - 1].comments[pos[id_n]].fullname;
-            _cmt.innerHTML = data[id_n - 1].comments[pos[id_n]].content;
-            noidung_cmt.append(username_cmt);
-            noidung_cmt.append(_cmt);
-
-            cmt_content_area.append(img_user);
-            cmt_content_area.append(noidung_cmt);
-            let cnt_like_area = document.createElement("div");
-            cnt_like_area.setAttribute("class", "cnt_like_area");
-            let likeimg = document.createElement("img");
-            likeimg.setAttribute("class", "likeimg");
-            likeimg.setAttribute("id", id_s + "_" + String(pos[id_n]));
-            likeimg.src = "./images/like-blue.png";
-            cnt_like_area.append(likeimg);
-            let countlike = document.createElement("div");
-            countlike.setAttribute(
-              "id",
-              "cntlike" + id_s + "_" + String(pos[id_n])
-            );
-            countlike.innerHTML = data[id_n - 1].comments[pos[id_n]].like;
-            likeimg.addEventListener("click", (e) => {
-              // console.log(e.target.id);
-              let _id = e.target.id;
-              let pid = 0,
-                position = 0,
-                ok = 0;
-              for (let _i = 0; _i < _id.length; _i++) {
-                if (ok == 0 && _id[_i] != "_") {
-                  pid = pid * 10 + (_id[_i] - "0");
-                } else if (_id[_i] == "_") ok = 1;
-                else if (ok == 1 && _id[_i] != "_") {
-                  position = position * 10 + (_id[_i] - "0");
-                }
-              }
-              let cntlike = document.getElementById(
-                "cntlike" + String(e.target.id)
-              );
-              let cnt = Number(cntlike.innerHTML);
-              cnt++;
-              cntlike.innerHTML = cnt;
-              let arr_cmt = data[pid - 1].comments;
-              arr_cmt[position].like = cnt;
-              updateById(pid, {
-                fullname: data[pid - 1].fullname,
-                avatar: data[pid - 1].avatar,
-                content: data[pid - 1].content,
-                cnt_like: data[pid - 1].cnt_like,
-                hour: data[pid - 1].hour,
-                minute: data[pid - 1].minute,
-                second: data[pid - 1].second,
-                ngay: data[pid - 1].ngay,
-                thang: data[pid - 1].thang,
-                nam: data[pid - 1].nam,
-                imgsrc: data[pid - 1].imgsrc,
-                comments: arr_cmt,
-              });
-              // console.log(pid, position);
-            });
-            // cmt_content_area.append(cnt_like_area);
-            cnt_like_area.append(countlike);
-            let _content_area = document.createElement("div");
-            _content_area.setAttribute("class", "_content_area");
-            _content_area.append(cmt_content_area);
-            _content_area.append(cnt_like_area);
-
-            content_area.append(_content_area);
-            pos[id_n]++;
-            dem++;
-            if (dem == 3) {
-              dem = 0;
-              break;
-            }
-          }
-          let post_cmt = document.createElement("div");
-          post_cmt.setAttribute("class", post_cmt);
-          let cmt_input_area = document.createElement("div");
-          cmt_input_area.setAttribute("class", "cmt_input_area");
-          let cmt_input = document.createElement("input");
-          cmt_input.type = "text";
-          cmt_input_area.append(cmt_input);
-          let pbtn = document.createElement("button");
-          pbtn.setAttribute("class", "pbtn");
-          pbtn.setAttribute("id", id_s);
-          pbtn.innerHTML = "post";
-          cmt_input_area.append(pbtn);
-          pbtn.addEventListener("click", (e) => {
-            // console.log(e.target.id);
-            let cmt_content_area = document.createElement("div");
-            cmt_content_area.setAttribute("class", "cmt_content_area");
-            let img_user = document.createElement("img");
-            img_user.setAttribute("class", "img_user");
-            img_user.src = localStorage.avatar;
-            // let noidung_cmt = document.createElement("div");
-            // noidung_cmt.setAttribute("class", "noidung_cmt");
-            // noidung_cmt.innerHTML = cmt_input.value;
-            let noidung_cmt = document.createElement("div");
-            noidung_cmt.setAttribute("class", "noidung_cmt");
-            let _cmt = document.createElement("div");
-            _cmt.setAttribute("class", "_cmt");
-            let username_cmt = document.createElement("div");
-            username_cmt.setAttribute("class", "username_cmt");
-
-            username_cmt.innerHTML = localStorage.fullname;
-            _cmt.innerHTML = cmt_input.value;
-            noidung_cmt.append(username_cmt);
-            noidung_cmt.append(_cmt);
-
-            cmt_content_area.append(img_user);
-            cmt_content_area.append(noidung_cmt);
-            let cnt_like_area = document.createElement("div");
-            cnt_like_area.setAttribute("class", "cnt_like_area");
-            let likeimg = document.createElement("img");
-            likeimg.setAttribute("class", "likeimg");
-            likeimg.setAttribute(
-              "id",
-              id_s + "_" + String(data[id_n - 1].comments.length)
-            );
-            likeimg.src = "./images/like-blue.png";
-            cnt_like_area.append(likeimg);
-            let countlike = document.createElement("div");
-            countlike.setAttribute(
-              "id",
-              "cntlike" + id_s + "_" + String(data[id_n - 1].comments.length)
-            );
-            countlike.innerHTML = 0;
-            likeimg.addEventListener("click", (e) => {
-              // console.log(e.target.id);
-              let _id = e.target.id;
-              let pid = 0,
-                position = 0,
-                ok = 0;
-              for (let _i = 0; _i < _id.length; _i++) {
-                if (ok == 0 && _id[_i] != "_") {
-                  pid = pid * 10 + (_id[_i] - "0");
-                } else if (_id[_i] == "_") ok = 1;
-                else if (ok == 1 && _id[_i] != "_") {
-                  position = position * 10 + (_id[_i] - "0");
-                }
-              }
-              let cntlike = document.getElementById(
-                "cntlike" + String(e.target.id)
-              );
-              let cnt = Number(cntlike.innerHTML);
-              cnt++;
-              cntlike.innerHTML = cnt;
-              let arr_cmt = data[pid - 1].comments;
-              arr_cmt[position].like = cnt;
-              updateById(pid, {
-                fullname: data[pid - 1].fullname,
-                avatar: data[pid - 1].avatar,
-                content: data[pid - 1].content,
-                cnt_like: data[pid - 1].cnt_like,
-                hour: data[pid - 1].hour,
-                minute: data[pid - 1].minute,
-                second: data[pid - 1].second,
-                ngay: data[pid - 1].ngay,
-                thang: data[pid - 1].thang,
-                nam: data[pid - 1].nam,
-                imgsrc: data[pid - 1].imgsrc,
-                comments: arr_cmt,
-              });
-              // console.log(pid, position);
-            });
-            // cmt_content_area.append(cnt_like_area);
-            cnt_like_area.append(countlike);
-            let _content_area = document.createElement("div");
-            _content_area.setAttribute("class", "_content_area");
-            _content_area.append(cmt_content_area);
-            _content_area.append(cnt_like_area);
-            let content_area = document.getElementById("content_area" + id_s);
-            content_area.append(_content_area);
-            let _id = Number(e.target.id);
-            let data_cmt = {
-              fullname: localStorage.getItem("fullname"),
-              avatar: localStorage.getItem("avatar"),
-              content: cmt_input.value,
-              like: 0,
-              pid: _id,
-            };
-            let array_cmt = data[_id - 1].comments;
-            array_cmt.push(data_cmt);
-            cmt_input.value = "";
-            updateById(_id, {
-              fullname: data[_id - 1].fullname,
-              avatar: data[_id - 1].avatar,
-              content: data[_id - 1].content,
-              cnt_like: data[_id - 1].cnt_like,
-              hour: data[_id - 1].hour,
-              minute: data[_id - 1].minute,
-              second: data[_id - 1].second,
-              ngay: data[_id - 1].ngay,
-              thang: data[_id - 1].thang,
-              nam: data[_id - 1].nam,
-              imgsrc: data[_id - 1].imgsrc,
-              comments: array_cmt,
-            });
-          });
-          let loadmore = document.createElement("button");
-          loadmore.setAttribute("class", "loadmore");
-          loadmore.setAttribute("id", id_s);
-          loadmore.innerHTML = "Xem thêm";
-          // cmt_area.append(cmt_input_area);
-          // cmt_area.append(loadmore);
-          npostt.append(cmt_area);
-          loadmore.addEventListener("click", (e) => {
-            // console.log(e.target.id);
-            let id_n = Number(e.target.id);
-            let id_s = String(e.target.id);
-            while (pos[id_n] < data[id_n - 1].comments.length) {
+            if (check[id_n - 1][pos[id_n]] == 0) {
               let cmt_content_area = document.createElement("div");
               cmt_content_area.setAttribute("class", "cmt_content_area");
               let img_user = document.createElement("img");
               img_user.setAttribute("class", "img_user");
               img_user.src = data[id_n - 1].comments[pos[id_n]].avatar;
-              // let noidung_cmt = document.createElement("div");
-              // noidung_cmt.setAttribute("class", "noidung_cmt");
-              // noidung_cmt.innerHTML =
-              //   data[id_n - 1].comments[pos[id_n]].content;
               let noidung_cmt = document.createElement("div");
               noidung_cmt.setAttribute("class", "noidung_cmt");
               let _cmt = document.createElement("div");
@@ -513,6 +302,7 @@ function refresh() {
               _cmt.innerHTML = data[id_n - 1].comments[pos[id_n]].content;
               noidung_cmt.append(username_cmt);
               noidung_cmt.append(_cmt);
+
               cmt_content_area.append(img_user);
               cmt_content_area.append(noidung_cmt);
               let cnt_like_area = document.createElement("div");
@@ -572,9 +362,241 @@ function refresh() {
               _content_area.setAttribute("class", "_content_area");
               _content_area.append(cmt_content_area);
               _content_area.append(cnt_like_area);
+
               content_area.append(_content_area);
-              pos[id_n]++;
+
               dem++;
+            }
+            pos[id_n]++;
+            if (dem == 3) {
+              dem = 0;
+              break;
+            }
+          }
+          let post_cmt = document.createElement("div");
+          post_cmt.setAttribute("class", post_cmt);
+          let cmt_input_area = document.createElement("div");
+          cmt_input_area.setAttribute("class", "cmt_input_area");
+          let cmt_input = document.createElement("input");
+          cmt_input.type = "text";
+          cmt_input_area.append(cmt_input);
+          let pbtn = document.createElement("button");
+          pbtn.setAttribute("class", "pbtn");
+          pbtn.setAttribute("id", id_s);
+          pbtn.innerHTML = "post";
+          cmt_input_area.append(pbtn);
+          pbtn.addEventListener("click", (e) => {
+            // console.log(e.target.id);
+            let cmt_content_area = document.createElement("div");
+            cmt_content_area.setAttribute("class", "cmt_content_area");
+            let img_user = document.createElement("img");
+            img_user.setAttribute("class", "img_user");
+            img_user.src = localStorage.avatar;
+            // let noidung_cmt = document.createElement("div");
+            // noidung_cmt.setAttribute("class", "noidung_cmt");
+            // noidung_cmt.innerHTML = cmt_input.value;
+            let noidung_cmt = document.createElement("div");
+            noidung_cmt.setAttribute("class", "noidung_cmt");
+            let _cmt = document.createElement("div");
+            _cmt.setAttribute("class", "_cmt");
+            let username_cmt = document.createElement("div");
+            username_cmt.setAttribute("class", "username_cmt");
+
+            username_cmt.innerHTML = localStorage.fullname;
+            _cmt.innerHTML = cmt_input.value;
+            noidung_cmt.append(username_cmt);
+            noidung_cmt.append(_cmt);
+
+            cmt_content_area.append(img_user);
+            cmt_content_area.append(noidung_cmt);
+            let cnt_like_area = document.createElement("div");
+            cnt_like_area.setAttribute("class", "cnt_like_area");
+            let likeimg = document.createElement("img");
+            likeimg.setAttribute("class", "likeimg");
+            likeimg.setAttribute(
+              "id",
+              id_s + "_" + String(data[id_n - 1].comments.length)
+            );
+
+            likeimg.src = "./images/like-blue.png";
+            cnt_like_area.append(likeimg);
+            let countlike = document.createElement("div");
+            countlike.setAttribute(
+              "id",
+              "cntlike" + id_s + "_" + String(data[id_n - 1].comments.length)
+            );
+            countlike.innerHTML = 0;
+            likeimg.addEventListener("click", (e) => {
+              // console.log(e.target.id);
+              let _id = e.target.id;
+              let pid = 0,
+                position = 0,
+                ok = 0;
+              for (let _i = 0; _i < _id.length; _i++) {
+                if (ok == 0 && _id[_i] != "_") {
+                  pid = pid * 10 + (_id[_i] - "0");
+                } else if (_id[_i] == "_") ok = 1;
+                else if (ok == 1 && _id[_i] != "_") {
+                  position = position * 10 + (_id[_i] - "0");
+                }
+              }
+              let cntlike = document.getElementById(
+                "cntlike" + String(e.target.id)
+              );
+              let cnt = Number(cntlike.innerHTML);
+              cnt++;
+              cntlike.innerHTML = cnt;
+              let arr_cmt = data[pid - 1].comments;
+              arr_cmt[position].like = cnt;
+              updateById(pid, {
+                fullname: data[pid - 1].fullname,
+                avatar: data[pid - 1].avatar,
+                content: data[pid - 1].content,
+                cnt_like: data[pid - 1].cnt_like,
+                hour: data[pid - 1].hour,
+                minute: data[pid - 1].minute,
+                second: data[pid - 1].second,
+                ngay: data[pid - 1].ngay,
+                thang: data[pid - 1].thang,
+                nam: data[pid - 1].nam,
+                imgsrc: data[pid - 1].imgsrc,
+                comments: arr_cmt,
+              });
+              // console.log(pid, position);
+            });
+            // cmt_content_area.append(cnt_like_area);
+            cnt_like_area.append(countlike);
+            let _content_area = document.createElement("div");
+            _content_area.setAttribute("class", "_content_area");
+            _content_area.append(cmt_content_area);
+            _content_area.append(cnt_like_area);
+            let content_area = document.getElementById("content_area" + id_s);
+            content_area.append(_content_area);
+            check[id_n - 1][data[id_n - 1].comments.length] = 1;
+            let _id = Number(e.target.id);
+            let data_cmt = {
+              fullname: localStorage.getItem("fullname"),
+              avatar: localStorage.getItem("avatar"),
+              content: cmt_input.value,
+              like: 0,
+              pid: _id,
+            };
+            let array_cmt = data[_id - 1].comments;
+            array_cmt.push(data_cmt);
+            cmt_input.value = "";
+            updateById(_id, {
+              fullname: data[_id - 1].fullname,
+              avatar: data[_id - 1].avatar,
+              content: data[_id - 1].content,
+              cnt_like: data[_id - 1].cnt_like,
+              hour: data[_id - 1].hour,
+              minute: data[_id - 1].minute,
+              second: data[_id - 1].second,
+              ngay: data[_id - 1].ngay,
+              thang: data[_id - 1].thang,
+              nam: data[_id - 1].nam,
+              imgsrc: data[_id - 1].imgsrc,
+              comments: array_cmt,
+            });
+          });
+          let loadmore = document.createElement("button");
+          loadmore.setAttribute("class", "loadmore");
+          loadmore.setAttribute("id", id_s);
+          loadmore.innerHTML = "Xem thêm";
+          // cmt_area.append(cmt_input_area);
+          // cmt_area.append(loadmore);
+          npostt.append(cmt_area);
+          loadmore.addEventListener("click", (e) => {
+            // console.log(e.target.id);
+            let id_n = Number(e.target.id);
+            let id_s = String(e.target.id);
+            while (pos[id_n] < data[id_n - 1].comments.length) {
+              if (check[id_n - 1][pos[id_n]] == 0) {
+                let cmt_content_area = document.createElement("div");
+                cmt_content_area.setAttribute("class", "cmt_content_area");
+                let img_user = document.createElement("img");
+                img_user.setAttribute("class", "img_user");
+                img_user.src = data[id_n - 1].comments[pos[id_n]].avatar;
+                // let noidung_cmt = document.createElement("div");
+                // noidung_cmt.setAttribute("class", "noidung_cmt");
+                // noidung_cmt.innerHTML =
+                //   data[id_n - 1].comments[pos[id_n]].content;
+                let noidung_cmt = document.createElement("div");
+                noidung_cmt.setAttribute("class", "noidung_cmt");
+                let _cmt = document.createElement("div");
+                _cmt.setAttribute("class", "_cmt");
+                let username_cmt = document.createElement("div");
+                username_cmt.setAttribute("class", "username_cmt");
+
+                username_cmt.innerHTML =
+                  data[id_n - 1].comments[pos[id_n]].fullname;
+                _cmt.innerHTML = data[id_n - 1].comments[pos[id_n]].content;
+                noidung_cmt.append(username_cmt);
+                noidung_cmt.append(_cmt);
+                cmt_content_area.append(img_user);
+                cmt_content_area.append(noidung_cmt);
+                let cnt_like_area = document.createElement("div");
+                cnt_like_area.setAttribute("class", "cnt_like_area");
+                let likeimg = document.createElement("img");
+                likeimg.setAttribute("class", "likeimg");
+                likeimg.setAttribute("id", id_s + "_" + String(pos[id_n]));
+                likeimg.src = "./images/like-blue.png";
+                cnt_like_area.append(likeimg);
+                let countlike = document.createElement("div");
+                countlike.setAttribute(
+                  "id",
+                  "cntlike" + id_s + "_" + String(pos[id_n])
+                );
+                countlike.innerHTML = data[id_n - 1].comments[pos[id_n]].like;
+                likeimg.addEventListener("click", (e) => {
+                  // console.log(e.target.id);
+                  let _id = e.target.id;
+                  let pid = 0,
+                    position = 0,
+                    ok = 0;
+                  for (let _i = 0; _i < _id.length; _i++) {
+                    if (ok == 0 && _id[_i] != "_") {
+                      pid = pid * 10 + (_id[_i] - "0");
+                    } else if (_id[_i] == "_") ok = 1;
+                    else if (ok == 1 && _id[_i] != "_") {
+                      position = position * 10 + (_id[_i] - "0");
+                    }
+                  }
+                  let cntlike = document.getElementById(
+                    "cntlike" + String(e.target.id)
+                  );
+                  let cnt = Number(cntlike.innerHTML);
+                  cnt++;
+                  cntlike.innerHTML = cnt;
+                  let arr_cmt = data[pid - 1].comments;
+                  arr_cmt[position].like = cnt;
+                  updateById(pid, {
+                    fullname: data[pid - 1].fullname,
+                    avatar: data[pid - 1].avatar,
+                    content: data[pid - 1].content,
+                    cnt_like: data[pid - 1].cnt_like,
+                    hour: data[pid - 1].hour,
+                    minute: data[pid - 1].minute,
+                    second: data[pid - 1].second,
+                    ngay: data[pid - 1].ngay,
+                    thang: data[pid - 1].thang,
+                    nam: data[pid - 1].nam,
+                    imgsrc: data[pid - 1].imgsrc,
+                    comments: arr_cmt,
+                  });
+                  // console.log(pid, position);
+                });
+                // cmt_content_area.append(cnt_like_area);
+                cnt_like_area.append(countlike);
+                let _content_area = document.createElement("div");
+                _content_area.setAttribute("class", "_content_area");
+                _content_area.append(cmt_content_area);
+                _content_area.append(cnt_like_area);
+                content_area.append(_content_area);
+
+                dem++;
+              }
+              pos[id_n]++;
               if (dem == 3) {
                 dem = 0;
                 break;
@@ -757,5 +779,6 @@ _post.onclick = function () {
   content.value = "";
   cnt_upimg = 0;
 };
+
 // inactive();
 // window.addEventListener("beforeunload", inactive);
