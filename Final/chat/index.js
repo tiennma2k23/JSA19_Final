@@ -40,14 +40,18 @@ window.onload = function () {
       // `;
 
       var img1 = document.createElement("img");
-      img1.setAttribute("id", "chat");
-      img1.src = "chatapp_image/logo1.png";
+      img1.setAttribute("id", "logo");
+      img1.src = "../home/images/logo.png";
       // img1.href = "#";
       var link = document.createElement("a");
+      // link.setAttribute("class", "link");
       link.append(img1);
       // img1.onclick = function () {
       //   console.log("object");
       // };
+      link.addEventListener("click", () => {
+        localStorage.removeItem("chat");
+      });
       link.href = "../home/index.html";
       title_inner_container.append(link);
       title_inner_container.append(title);

@@ -293,6 +293,10 @@ body {
     background: #d64045;
     border-radius: 5px;
   }
+  #logo
+  {
+    width: 50px;
+  }
   /* .loader {
     width: 48px;
     height: 48px;

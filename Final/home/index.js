@@ -2,6 +2,7 @@
 // let Url = String(localStorage.getItem("avatar"));
 // console.log(localStorage.getItem("avatar"));
 // let Url = localStorage.avatar;
+localStorage.removeItem("chat");
 var setting_menu = document.querySelector(".settings_menu");
 function setting_menu_toggle() {
   setting_menu.classList.toggle("settings_menu_height");
@@ -779,6 +780,3 @@ _post.onclick = function () {
   content.value = "";
   cnt_upimg = 0;
 };
-
-// inactive();
-// window.addEventListener("beforeunload", inactive);
