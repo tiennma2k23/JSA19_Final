@@ -2,6 +2,13 @@
 // let Url = String(localStorage.getItem("avatar"));
 // console.log(localStorage.getItem("avatar"));
 // let Url = localStorage.avatar;
+// if (localStorage.getItem("fullname") == null) {
+//   setTimeout(() => {
+//     window.close("index.html");
+//   }, 0);
+//   window.open("../login_signup/index_login.html");
+//   // window.close("index.html");
+// }
 localStorage.removeItem("chat");
 var setting_menu = document.querySelector(".settings_menu");
 function setting_menu_toggle() {
