@@ -2,13 +2,14 @@
 // let Url = String(localStorage.getItem("avatar"));
 // console.log(localStorage.getItem("avatar"));
 // let Url = localStorage.avatar;
-// if (localStorage.getItem("fullname") == null) {
-//   setTimeout(() => {
-//     window.close("index.html");
-//   }, 0);
-//   window.open("../login_signup/index_login.html");
-//   // window.close("index.html");
-// }
+
+if (localStorage.getItem("fullname") == null) {
+  setTimeout(() => {
+    window.close("index.html");
+  }, 0);
+  window.open("../login_signup/index_login.html");
+  // window.close("index.html");
+}
 localStorage.removeItem("chat");
 var setting_menu = document.querySelector(".settings_menu");
 function setting_menu_toggle() {
@@ -177,12 +178,27 @@ function refresh() {
         name_user.append(name_t);
         user_profile.append(img_user);
         user_profile.append(name_user);
+        var options = document.createElement("div");
+        options.setAttribute("id", "options" + String(data[i].id));
+        options.setAttribute("class", "options");
         var post_row_a = document.createElement("a");
         var post_row_a_i = document.createElement("i");
         post_row_a_i.setAttribute("class", "fas fa-ellipsis-v");
+        post_row_a_i.setAttribute("id", "i" + String(data[i].id));
+        post_row_a_i.addEventListener("click", (e) => {
+          // console.log(e.target.id);
+          let _idd = e.target.id,
+            _id_n = 0;
+          for (let _i = 0; _i < _idd.length; _i++) {
+            if (_idd[_i] >= "0" && _idd[_i] <= "9")
+              _id_n = _id_n * 10 + _idd[_i] - "0";
+          }
+          // console.log(_id_n);
+        });
         post_row_a.append(post_row_a_i);
+        options.append(post_row_a);
         post_row1.append(user_profile);
-        post_row1.append(post_row_a);
+        post_row1.append(options);
         npost.append(post_row1);
 
         var post_text = document.createElement("p");
