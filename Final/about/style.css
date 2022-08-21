@@ -49,4 +49,24 @@ body
     cursor: pointer;
 }
 
-
+.return_a
+{
+    height: 40px;
+    width: 100px;
+    border-radius: 25px;
+    background-color: orange;
+    color: black;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-decoration: none;
+    outline: none;
+    cursor: pointer;
+}
+.return_home
+{
+    display: flex;
+    width: 100%;
+    justify-content: flex-end;
+    align-items: center;
+}
