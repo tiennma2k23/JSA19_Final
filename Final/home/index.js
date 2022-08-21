@@ -59,7 +59,7 @@ const updateById = async (id, newData) => {
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify(newData),
   });
-  console.log(await res.json());
+  // console.log(await res.json());
 };
 const updateById2 = async (id, newData) => {
   const res = await fetch(UrlApiUser + `/${id}`, {
@@ -67,7 +67,7 @@ const updateById2 = async (id, newData) => {
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify(newData),
   });
-  console.log(await res.json());
+  // console.log(await res.json());
 };
 function _settime(hour, minute, second, id) {
   let ch;
