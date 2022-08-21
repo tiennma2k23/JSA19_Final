@@ -792,7 +792,7 @@ function listOnlineUser() {
       if (useronline.length < 3) {
         for (let index = 0; index < useronline.length; index++) {
           dem++;
-          online_user.innerHTML += `<div class="online_list">
+          online_user.innerHTML += `<div class="online_list" style="cursor:pointer;">
         <div class="online">
             <img src=${data[useronline[index]].avatar} alt="">
         </div>
