@@ -896,5 +896,5 @@ _post.onclick = function () {
   content.value = "";
   cnt_upimg = 0;
 };
-console.log(1);
+// console.log(1);
 // localStorage.removeItem("arr_hide");
