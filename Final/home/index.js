@@ -151,7 +151,7 @@ if (localStorage.getItem("arr_hide") == null) {
   localStorage.setItem("arr_hide", JSON.stringify(hide_arr));
 }
 let visit = [];
-for (let i = 1; i <= 1000000; i++) visit.push(i);
+for (let i = 1; i <= 1000000; i++) visit.push(0);
 function refresh() {
   // window.addEventListener("click", () => {
   //   console.log(prev);
@@ -169,8 +169,9 @@ function refresh() {
       let dem = 3;
       let hide_arr = JSON.parse(localStorage.getItem("arr_hide"));
       for (let i = data.length - 1; i >= 0; i--) {
-        if (visit[data[i].id]) continue;
+        if (visit[data[i].id] > 0) continue;
         visit[data[i].id] = 1;
+        if (data[i].fullname == "") continue;
         if (hide_arr[i] > 0) continue;
         dem--;
 
@@ -243,12 +244,33 @@ function refresh() {
             div_post.innerHTML = "";
           });
           let del = document.createElement("p");
-          del.style = "cursor:pointer;";
-          del.setAttribute("id", String(_id_n));
-          del.innerHTML = "Xóa";
-          del.addEventListener("click", (e) => {
-            console.log("del", e.target.id);
-          });
+          del.innerHTML = "";
+          if (localStorage.getItem("fullname") == data[_id_n - 1].fullname) {
+            del.style = "cursor:pointer;";
+            del.setAttribute("id", String(_id_n));
+            del.innerHTML = "Xóa";
+            del.addEventListener("click", (e) => {
+              // console.log("del", e.target.id);
+              let num = Number(e.target.id);
+              let id_n = num;
+              updateById(id_n, {
+                fullname: "",
+                avatar: "",
+                content: "",
+                cnt_like: cnt_like,
+                hour: data[id_n - 1].hour,
+                minute: data[id_n - 1].minute,
+                second: data[id_n - 1].second,
+                ngay: data[id_n - 1].ngay,
+                thang: data[id_n - 1].thang,
+                nam: data[id_n - 1].nam,
+                imgsrc: data[id_n - 1].imgsrc,
+                comments: [],
+              });
+              let div_post = document.getElementById("div_post" + String(num));
+              div_post.innerHTML = "";
+            });
+          }
           option.append(hide);
           option.append(del);
           let ops = document.getElementById("options" + String(_id_n));
