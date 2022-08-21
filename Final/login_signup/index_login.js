@@ -1,3 +1,4 @@
+localStorage.removeItem("arr_hide");
 const UrlApi = "https://62d4116c5112e98e484a08f4.mockapi.io/api/users";
 const updateById = async (id, newData) => {
   const res = await fetch(UrlApi + `/${id}`, {
