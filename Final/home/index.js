@@ -189,6 +189,7 @@ function refresh() {
         var name_user = document.createElement("div");
         var name_p = document.createElement("p");
         name_p.innerHTML = name;
+        name_p.style = "cursor:pointer;";
         var timee =
           _settime(data[i].hour, data[i].minute, data[i].second, 1) +
           " ngày " +
@@ -207,6 +208,7 @@ function refresh() {
         var post_row_a_i = document.createElement("i");
         post_row_a_i.setAttribute("class", "fas fa-ellipsis-v");
         post_row_a_i.setAttribute("id", "i" + String(data[i].id));
+        post_row_a_i.style = "cursor:pointer;";
         post_row_a_i.addEventListener("click", (e) => {
           // console.log(e.target.id);
           let _idd = e.target.id,
@@ -315,7 +317,7 @@ function refresh() {
         countlike.innerHTML = cnt_like;
         like_div.append(countlike);
         activity_icon.append(like_div);
-
+        like.style = "cursor:pointer;";
         like.addEventListener("click", (e) => {
           // console.log(e.target);
           var id_s = String(e.target.id),
@@ -375,6 +377,7 @@ function refresh() {
         countcmt.innerHTML = String(data[i].comments.length);
         cmt_div.append(countcmt);
         // let pos = 0;
+        cmt.style = "cursor:pointer";
         cmt.addEventListener("click", (e) => {
           let dem = 0;
           let id_s = String(e.target.id);
@@ -424,6 +427,7 @@ function refresh() {
                 "cntlike" + id_s + "_" + String(pos[id_n])
               );
               countlike.innerHTML = data[id_n - 1].comments[pos[id_n]].like;
+              likeimg.style = "cursor:pointer";
               likeimg.addEventListener("click", (e) => {
                 // console.log(e.target.id);
                 let _id = e.target.id;
@@ -727,6 +731,7 @@ function refresh() {
         imgshare.src = "images/share.png";
         share.append(imgshare);
         share_div.append(share);
+        share.style = "cursor:pointer;";
         var countshare = document.createElement("span");
         countshare.setAttribute("id", "countshare");
         countshare.innerHTML = "100";
