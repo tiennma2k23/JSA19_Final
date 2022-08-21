@@ -1074,3 +1074,15 @@ nav .nav-right a > i{
 {
   font-weight: bolder;
 }
+
+.options
+{
+  width: 50px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.options i
+{
+  width: 5%;
+}

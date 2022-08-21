@@ -69,7 +69,6 @@ const updateById2 = async (id, newData) => {
   });
   console.log(await res.json());
 };
-
 function _settime(hour, minute, second, id) {
   let ch;
   if (id == 1) ch = ":";
@@ -143,16 +142,35 @@ for (let i = 1; i <= 10000; i++) {
   check.push(_tmp);
 }
 // console.log(check[0][0]);
+// console.log(document.getElementById("abc"));
+let prev = -1;
+
+if (localStorage.getItem("arr_hide") == null) {
+  let hide_arr = [];
+  for (let i = 0; i < 1000000; i++) hide_arr.push(0);
+  localStorage.setItem("arr_hide", JSON.stringify(hide_arr));
+}
 function refresh() {
+  // window.addEventListener("click", () => {
+  //   console.log(prev);
+  //   if (prev != -1) {
+  //     let previd = "option" + String(prev);
+  //     let optionprev = document.getElementById(previd);
+  //     optionprev.innerHTML = "";
+  //   }
+  // });
   let main = document.getElementById("post_in_mediabook");
   // main.innerHTML = "";
   fetch(UrlApi)
     .then((result) => result.json())
     .then((data) => {
       let dem = 3;
+      let hide_arr = JSON.parse(localStorage.getItem("arr_hide"));
       for (let i = idp; i < data.length; i++) {
-        dem--;
         idp++;
+        if (hide_arr[i] > 0) continue;
+        dem--;
+
         var name = data[i].fullname;
         var poster = data[i].content;
         var cnt_like = data[i].cnt_like;
@@ -193,6 +211,45 @@ function refresh() {
             if (_idd[_i] >= "0" && _idd[_i] <= "9")
               _id_n = _id_n * 10 + _idd[_i] - "0";
           }
+          if (prev != -1) {
+            let previd = "option" + String(prev);
+            // console.log(document.getElementById(previd));
+            let optionprev = document.getElementById(previd);
+            if (optionprev != null) {
+              optionprev.innerHTML = "";
+            }
+          }
+          // console.log(prev);
+          prev = _id_n;
+          let option;
+          if (document.getElementById("option" + String(_id_n)) == null) {
+            option = document.createElement("div");
+            option.setAttribute("id", "option" + String(_id_n));
+            option.setAttribute("class", "option");
+          } else option = document.getElementById("option" + String(_id_n));
+          let hide = document.createElement("p");
+          hide.style = "cursor:pointer;";
+          hide.setAttribute("id", String(_id_n));
+          hide.innerHTML = "Ẩn";
+          hide.addEventListener("click", (e) => {
+            let num = Number(e.target.id);
+            let arr = JSON.parse(localStorage.getItem("arr_hide"));
+            arr[num - 1] = 1;
+            localStorage.setItem("arr_hide", JSON.stringify(arr));
+            let div_post = document.getElementById("div_post" + String(num));
+            div_post.innerHTML = "";
+          });
+          let del = document.createElement("p");
+          del.style = "cursor:pointer;";
+          del.setAttribute("id", String(_id_n));
+          del.innerHTML = "Xóa";
+          del.addEventListener("click", (e) => {
+            console.log("del", e.target.id);
+          });
+          option.append(hide);
+          option.append(del);
+          let ops = document.getElementById("options" + String(_id_n));
+          ops.append(option);
           // console.log(_id_n);
         });
         post_row_a.append(post_row_a_i);
@@ -657,11 +714,15 @@ function refresh() {
 
         let newDiv = document.createElement("div");
         newDiv.className = "post_container";
+
+        let div_post = document.createElement("div");
+        div_post.setAttribute("id", "div_post" + String(data[i].id));
         let newpost = document.createElement("div");
         newpost.append(npost);
 
         newDiv.append(newpost);
-        main.append(newDiv);
+        div_post.append(newDiv);
+        main.append(div_post);
         if (dem == 0 || idp == data.length) break;
       }
     });
@@ -803,3 +864,5 @@ _post.onclick = function () {
   content.value = "";
   cnt_upimg = 0;
 };
+
+// localStorage.removeItem("arr_hide");
