@@ -210,13 +210,14 @@ function refresh() {
         post_row_a_i.setAttribute("id", "i" + String(data[i].id));
         post_row_a_i.style = "cursor:pointer;";
         post_row_a_i.addEventListener("click", (e) => {
-          // console.log(e.target.id);
+          console.log(e.target.id);
           let _idd = e.target.id,
             _id_n = 0;
-          for (let _i = 0; _i < _idd.length; _i++) {
+          for (let _i = 1; _i < _idd.length; _i++) {
             if (_idd[_i] >= "0" && _idd[_i] <= "9")
-              _id_n = _id_n * 10 + _idd[_i] - "0";
+              _id_n = _id_n * 10 + Number(_idd[_i]);
           }
+          // console.log(_id_n);
           if (prev != -1) {
             let previd = "option" + String(prev);
             // console.log(document.getElementById(previd));
@@ -228,6 +229,7 @@ function refresh() {
           // console.log(prev);
           prev = _id_n;
           let option;
+          // console.log(_id_n);
           if (document.getElementById("option" + String(_id_n)) == null) {
             option = document.createElement("div");
             option.setAttribute("id", "option" + String(_id_n));
