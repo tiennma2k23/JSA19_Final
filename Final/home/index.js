@@ -150,6 +150,8 @@ if (localStorage.getItem("arr_hide") == null) {
   for (let i = 0; i < 1000000; i++) hide_arr.push(0);
   localStorage.setItem("arr_hide", JSON.stringify(hide_arr));
 }
+let visit = [];
+for (let i = 1; i <= 1000000; i++) visit.push(i);
 function refresh() {
   // window.addEventListener("click", () => {
   //   console.log(prev);
@@ -166,8 +168,9 @@ function refresh() {
     .then((data) => {
       let dem = 3;
       let hide_arr = JSON.parse(localStorage.getItem("arr_hide"));
-      for (let i = idp; i < data.length; i++) {
-        idp++;
+      for (let i = data.length - 1; i >= 0; i--) {
+        if (visit[data[i].id]) continue;
+        visit[data[i].id] = 1;
         if (hide_arr[i] > 0) continue;
         dem--;
 
