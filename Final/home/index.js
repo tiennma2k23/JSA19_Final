@@ -438,10 +438,10 @@ function refresh() {
                   ok = 0;
                 for (let _i = 0; _i < _id.length; _i++) {
                   if (ok == 0 && _id[_i] != "_") {
-                    pid = pid * 10 + (_id[_i] - "0");
+                    pid = pid * 10 + Number(_id[_i]);
                   } else if (_id[_i] == "_") ok = 1;
                   else if (ok == 1 && _id[_i] != "_") {
-                    position = position * 10 + (_id[_i] - "0");
+                    position = position * 10 + Number(_id[_i]);
                   }
                 }
                 let cntlike = document.getElementById(
@@ -546,10 +546,10 @@ function refresh() {
                 ok = 0;
               for (let _i = 0; _i < _id.length; _i++) {
                 if (ok == 0 && _id[_i] != "_") {
-                  pid = pid * 10 + (_id[_i] - "0");
+                  pid = pid * 10 + Number(_id[_i]);
                 } else if (_id[_i] == "_") ok = 1;
                 else if (ok == 1 && _id[_i] != "_") {
-                  position = position * 10 + (_id[_i] - "0");
+                  position = position * 10 + Number(_id[_i]);
                 }
               }
               let cntlike = document.getElementById(
@@ -668,10 +668,10 @@ function refresh() {
                     ok = 0;
                   for (let _i = 0; _i < _id.length; _i++) {
                     if (ok == 0 && _id[_i] != "_") {
-                      pid = pid * 10 + (_id[_i] - "0");
+                      pid = pid * 10 + Number(_id[_i]);
                     } else if (_id[_i] == "_") ok = 1;
                     else if (ok == 1 && _id[_i] != "_") {
-                      position = position * 10 + (_id[_i] - "0");
+                      position = position * 10 + Number(_id[_i]);
                     }
                   }
                   let cntlike = document.getElementById(

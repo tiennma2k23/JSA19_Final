@@ -1,14 +1,14 @@
 window.onload = function () {
   const firebaseConfig = {
-    apiKey: "AIzaSyC5V-XQ4OlhJLACaFqt1BgK-6t0KJHVFv4",
-    authDomain: "chat-ee0f7.firebaseapp.com",
+    apiKey: "AIzaSyDKxXjlevSWfrXTQEHJMUKbo3MTzF_2d7E",
+    authDomain: "chat2-bf16e.firebaseapp.com",
     databaseURL:
-      "https://chat-ee0f7-default-rtdb.asia-southeast1.firebasedatabase.app",
-    projectId: "chat-ee0f7",
-    storageBucket: "chat-ee0f7.appspot.com",
-    messagingSenderId: "250061884800",
-    appId: "1:250061884800:web:52ff1a1b8ae34a0063c565",
-    measurementId: "G-204PFFWHJ2",
+      "https://chat2-bf16e-default-rtdb.asia-southeast1.firebasedatabase.app/",
+    projectId: "chat2-bf16e",
+    storageBucket: "chat2-bf16e.appspot.com",
+    messagingSenderId: "457459662440",
+    appId: "1:457459662440:web:05a1eb2a4d0d33d66e85dd",
+    measurementId: "G-73SECXKHN2",
   };
 
   firebase.initializeApp(firebaseConfig);
